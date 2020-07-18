@@ -15,4 +15,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
+Route::get('/admin', function () {
+    return view('index');
+})->name('admin');
+
+Route::get('/recover-password', function () {
+    return view('auth.recover-password');
+})->name('recover-password');
+
+Auth::routes();
+
