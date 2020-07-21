@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,17 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
-Route::get('/admin', function () {
-    return view('index');
-})->name('admin');
-
-Route::get('/recover-password', function () {
-    return view('auth.recover-password');
-})->name('recover-password');
-
+//**********AUTENTICACION**********//
 Auth::routes();
+Route::view('/', 'welcome' )->name('welcome');
+Route::view('/admin', 'index' )->middleware('auth')->name('admin');
+
+//**********CATEGORIAS**********//
+Route::resource('/categorias', 'CategoryController')->names('category');
+
+//**********PRODUCTOS**********//
+Route::resource('/productos', 'ProductController')->names('product');
+
+//**********ARBOL DE CARPETAS**********//
+Route::resource('/carpetas', 'FolderController')->names('folder');
+
 

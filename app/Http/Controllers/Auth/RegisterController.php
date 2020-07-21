@@ -52,7 +52,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'regex_password:/(^([a-zA-z]+)(\d+)?$)/u', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'regex:/(^([a-zA-z]+)(\d+)?$)/u', 'confirmed'],
         ]);
     }
 
