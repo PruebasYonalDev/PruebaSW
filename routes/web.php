@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,15 +18,31 @@ use Illuminate\Support\Facades\Route;
 //**********AUTENTICACION**********//
 Auth::routes();
 Route::view('/', 'welcome' )->name('welcome');
-Route::view('/admin', 'index' )->middleware('auth')->name('admin');
 
-//**********CATEGORIAS**********//
-Route::resource('/categorias', 'CategoryController')->names('category');
 
-//**********PRODUCTOS**********//
-Route::resource('/productos', 'ProductController')->names('product');
+Route::middleware('auth')
+    ->group(function (){
+    
 
-//**********ARBOL DE CARPETAS**********//
-Route::resource('/carpetas', 'FolderController')->names('folder');
+    Route::view('/admin', 'index' )->name('admin');
+
+    //**********CATEGORIAS**********//
+    Route::resource('/categorias', 'CategoryController')->names('category');
+
+    //**********PRODUCTOS**********//
+    Route::resource('/productos', 'ProductController')->names('product');
+
+    //**********ARBOL DE CARPETAS**********//
+    Route::resource('/carpetas', 'FolderController')->names('folder');
+
+    //**********COTIZACIÓNES**********//
+    Route::resource('/cotizaciones', 'EstimateController')->names('estimate');
+    Route::post('/agregarproducto', 'EstimateController@addCotizacion')->name('estimateadd');
+
+    //**********PDF**********//
+    Route::name('pdf')->get('/reporte/{id?}', 'EstimateController@reporte');
+
+});
+
 
 

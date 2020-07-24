@@ -2,13 +2,17 @@
 
 @section('content')
 
+
+<div class="container p-1">
 <!-- HTML (DOM) sourced data -->
 <section id="html">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Productos</h4>
+                    <div class="row">
+                        <h1>Productos</h1>
+                    </div>
                     <div class="row justify-content-center">
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#saveModal">Crear Producto</button>
                     </div>
@@ -83,7 +87,7 @@
     </div>
 </section>
 <!--/ HTML (DOM) sourced data -->
-
+</div>
 
 
 <!-- Modal Crear Productos -->
@@ -110,7 +114,7 @@
                                 <span class="input-group-text">Imagen</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01" name="imagen" accept="image/*">
+                                <input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01" id="customFileLang" name="imagen" accept="image/*" lang="es">
                                 <label class="custom-file-label" for="inputGroupFile01">Click Aquí</label>
                             </div>
                         </div>

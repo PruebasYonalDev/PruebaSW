@@ -141,7 +141,7 @@ class ProductController extends Controller
             'updated_at' => Carbon::now('America/Bogota')
         ]);
 
-        return back()->with('success', 'Producto Guardado');
+        return back()->with('success', 'Producto Actualizado');
     }
 
     /**

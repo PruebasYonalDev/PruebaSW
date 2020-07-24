@@ -53,7 +53,7 @@ class CategoryController extends Controller
             'created_at' => Carbon::now('America/Bogota'),
         ]);
 
-        return back();
+        return back()->with('success', 'Categoria Creada');
     }
 
     /**

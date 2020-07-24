@@ -22,7 +22,7 @@
                         </li>
                         <li class=" nav-item"><a href="{{ route('folder.index') }}"><i class="la la-folder"></i><span class="menu-title" data-i18n="Hospital">Ejr 3: Arbol de carpetas</span></a>
                         </li>
-                        <li class=" nav-item"><a href="../crypto-menu-template"><i class="la la-file-text"></i><span class="menu-title" data-i18n="Crypto">Ejr 4: Archivos y correos</span></a>
+                        <li class=" nav-item"><a href="{{ route('estimate.index') }}"><i class="la la-file-text"></i><span class="menu-title" data-i18n="Crypto">Ejr 4: Archivos y correos</span></a>
                         <!-- Inicio de Items de ejercicios -->
 
                     </ul>
