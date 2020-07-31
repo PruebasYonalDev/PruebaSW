@@ -13,7 +13,7 @@
                 <li>EJRC 1: <strong>100%</strong></li>
                 <li>EJRC 2: <strong>100%</strong></li>
                 <li>EJRC 3: <strong>10%</strong></li>
-                <li>EJRC 4: <strong>85%</strong></li>
+                <li>EJRC 4: <strong>80%</strong></li>
             </ul>
             <p>Repositorio en git <a href="https://github.com/PruebasYonalDev/pruebaSW" target="_blank" rel="noopener noreferrer">github.com/PruebasYonalDev/pruebaSW</a></p>
             <ul>

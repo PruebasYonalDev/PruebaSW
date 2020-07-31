@@ -57,18 +57,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($ordenes as $orden)
+                                        @foreach($orders as $order)
 
                                         <tr>
-                                            <td>{{ $orden->id_orden }}</td>
-                                            <td>{{ $orden->id_cliente }}</td>
-                                            <td>{{ $orden->observacion }}</td>
-                                            <td>{{ $orden->created_at }}</td>
-                                            <td>{{ $orden->total }}</td>
+                                            <td>{{ $order->id_order }}</td>
+                                            <td>{{ $order->FK_id_user }}</td>
+                                            <td>{{ $order->commet }}</td>
+                                            <td>{{ $order->created_at }}</td>
+                                            <td>{{ $order->total }}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a href="{{route('pdf',  $orden->id_cliente)}}" target="_blank" class="btn btn-primary">Descargar</a>
-                                                    <button type="button" class="btn btn-danger deleteBtnP">Enviar</button>
+                                                    <a href="{{ route('pdf',  $order->FK_id_user) }}" target="_blank" class="btn btn-primary">Descargar</a>
+                                                    <a href="{{ route('email',  $order->FK_id_user) }}" type="button" class="btn btn-danger">Enviar</a>
                                                 </div>
                                             </td>
                                         </tr>

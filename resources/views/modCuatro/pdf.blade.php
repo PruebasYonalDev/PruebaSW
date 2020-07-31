@@ -16,7 +16,7 @@
     </head>
     <header class="clearfix">
 @foreach($alls as $all)
-        <h1>N° DE ORDEN {{ $all->id_orden }}</h1>
+        <h1>N° DE ORDEN {{ $all->id_order }}</h1>
         <div>
             <div>Software Web</div>
             <div>Envigado<br />Cll # int 201</div>
@@ -44,10 +44,10 @@
             <tbody>
                 @foreach($products as $product)
                 <tr>
-                    <td>{{ $product->id_producto }}</td>
-                    <td>{{ $product->nombre_producto }}</td>
-                    <td>{{ $product->descripcion_producto }}</td>
-                    <td>{{ $product->precio }}</td>
+                    <td>{{ $product->id_product }}</td>
+                    <td>{{ $product->name_product }}</td>
+                    <td>{{ $product->description_product }}</td>
+                    <td>{{ $product->price }}</td>
                 </tr>
                 @endforeach
                 <tr>

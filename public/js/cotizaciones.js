@@ -17,7 +17,8 @@ $(document).ready(function() {
         }
 
         if ($('#descuentoP').val() != '') {
-             totalNeto -= (totalNeto * descP);
+             var des = (descP / 100);
+             totalNeto -= (des * totalNeto);
             $('#descuentoP').val('');
         }
 
@@ -26,10 +27,7 @@ $(document).ready(function() {
             $('#descuentoM').val('');
         }
 
-        
-
         $('#total').val(totalNeto);
-        console.log(totalNeto);
     });
     
     
@@ -53,19 +51,24 @@ $(document).ready(function() {
 
         var datat = table.row($tr).data();
 
-        var id = datat[0];
+        var idProduct = datat[0];
         var nombre = datat[2];
         var precio = datat[4];
         var precioint = parseInt(precio);
-        var idUser = $('#idUser').val();
+
+        if ($('#FK_id_user').val() === 'Elije una Categoria...') {
+            return alert('Deber de escoger un usuario');
+        }
+
+        var FK_id_user = $('#FK_id_user').val();
 
         const ob = {
-            idUser,
-            id,
+            FK_id_user,
+            idProduct,
         };
         arr.push(ob);
 
-        $('#tr').append('<tr><td>'+id+'</td><td>'+nombre+'</td><td><input value="' +precio+'"></td></tr>');
+        $('#tr').append('<tr><td>'+idProduct+'</td><td>'+nombre+'</td><td><input value="' +precio+'"></td></tr>');
         
         totalNeto =  total+=precioint
 

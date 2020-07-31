@@ -40,7 +40,10 @@ Route::middleware('auth')
     Route::post('/agregarproducto', 'EstimateController@addCotizacion')->name('estimateadd');
 
     //**********PDF**********//
-    Route::name('pdf')->get('/reporte/{id?}', 'EstimateController@reporte');
+    Route::get('/pdf/{id?}', 'EstimateController@reporte')->name('pdf');
+
+    //**********EMAIL**********//
+    Route::get('/email/{id?}', 'EstimateController@email')->name('email');
 
 });
 

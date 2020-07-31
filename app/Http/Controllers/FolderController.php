@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Folder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,11 +20,11 @@ class FolderController extends Controller
 
         $folders_arr = array();
 
-        $folders = DB::table('carpetas')->get();
+        $folders = Folder::where('state_folder', 1)->get();
 
         foreach ($folders as $folder) {
 
-            $parentid = $folder->parentid;
+            $parentid = $folder->parent;
 
             if ($parentid === 0) {
                 $parentid = '#';

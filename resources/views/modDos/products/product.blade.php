@@ -60,17 +60,17 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach($all as $one)
+                                    @foreach($alls as $all)
                                     <tr>
-                                        <td>{{ $one->id_producto }} </td>
-                                        <td><img width="100px" src="{{Storage::url($one->imagen)}}" alt="Imagen de producto"></td>
-                                        <td>{{ $one->nombre_producto }}</td>
-                                        <td>{{ $one->descripcion_producto }}</td>
-                                        <td>{{ $one->nombre_categoria}}</td>
-                                        <td>{{ $one->precio }}</td>
+                                        <td>{{ $all->id_product }} </td>
+                                        <td><img width="100px" src="{{Storage::url($all->image)}}" alt="Imagen de producto"></td>
+                                        <td>{{ $all->name_product }}</td>
+                                        <td>{{ $all->description_product }}</td>
+                                        <td>{{ $all->name_category}}</td>
+                                        <td>{{ $all->price }}</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="#" type="button" class="btn btn-primary editBtnP">Editar</a>
+                                                <a href="#" type="button" class="btn btn-primary editBtnProduct">Editar</a>
                                                 <button type="button" class="btn btn-danger deleteBtnP">Eliminar</button>
                                             </div>
                                         </td>
@@ -114,34 +114,34 @@
                                 <span class="input-group-text">Imagen</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01" id="customFileLang" name="imagen" accept="image/*" lang="es">
-                                <label class="custom-file-label" for="inputGroupFile01">Click Aquí</label>
+                                <input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01" id="customFileLang" name="image" accept="image/*" lang="es">
+                                <label class="custom-file-label" for="inputGroupFile01" id="customFileLang">Click Aquí</label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputAddress">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre del producto" name="nombre_producto">
+                        <input type="text" class="form-control" placeholder="Nombre del producto" name="name_product"  value="{{ old('name_product') }}">
                     </div>
                     <div class="form-group">
                         <label for="inputAddress2">Descripcion</label>
-                        <input type="text" class="form-control" placeholder="Descrpcion del producto" name="descripcion_producto">
+                        <input type="text" class="form-control" placeholder="Descrpcion del producto" name="description_product" value="{{ old('description_product') }}">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-7">
                             <label for="inputState">Categoria</label>
-                            <select class="form-control" name="categoria_id">
+                            <select class="form-control" name="FK_id_category">
                                 <option selected>Elije una Categoria...</option>
 
                                 @foreach($categories as $category)
-                                <option value="{{$category->id_categoria}}">{{$category->nombre_categoria}}</option>
+                                <option value="{{ $category->id_category }}">{{$category->name_category}}</option>
                                 @endforeach
 
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputZip">Precio</label>
-                            <input type="text" class="form-control" name="precio">
+                            <input type="text" class="form-control" name="price"  value="{{ old('price') }}">
                         </div>
                     </div>
 
@@ -159,7 +159,7 @@
 </div>
 
 <!-- Modal Editar Productos -->
-<div class="modal fade" id="editModalP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModalProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog ">
         <div class="modal-content">
@@ -171,14 +171,14 @@
             </div>
 
 
-            <form id="editFormP" method="POST" action="/product" enctype="multipart/form-data">
+            <form id="editFormProduct" method="POST" action="/product" enctype="multipart/form-data">
 
                 @csrf
                 @method('PUT')
 
                 <div class="modal-body">
                     <div class="form-group">
-                        <img class="border border-secondary rounded-sm mx-auto d-block" width="150px" src="" alt="" id="imagenP">
+                        <img class="border border-secondary rounded-sm mx-auto d-block" width="150px" src="" alt="" id="image">
                     </div>
                     <div class="form-row">
                         <label for="">Selecciona si deseas cambiar la imagen</label>
@@ -187,31 +187,31 @@
                                 <span class="input-group-text" id="inputGroupFileAddon01">Imagen</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01" name="imagen">
+                                <input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01" name="image">
                                 <label class="custom-file-label" for="inputGroupFile01">Click Aquí</label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputAddress">Nombre</label>
-                        <input type="text" class="form-control" id="nombre_producto" placeholder="Nombre del producto" name="nombre_producto">
+                        <input type="text" class="form-control" id="name_product" placeholder="Nombre del producto" name="name_product">
                     </div>
                     <div class="form-group">
                         <label for="inputAddress2">Descripcion</label>
-                        <input type="text" class="form-control" id="descripcion_producto" placeholder="Descrpcion del producto" name="descripcion_producto">
+                        <input type="text" class="form-control" id="description_product" placeholder="Descrpcion del producto" name="description_product">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-7">
                             <label for="inputState">Categoria</label>
-                            <select id="categoria_idP" class="form-control" name="id_categoria">
+                            <select id="FK_id_category" class="form-control" name="FK_id_category">
                                 @foreach($categories as $category)
-                                <option value="{{ $category->id_categoria }}">{{ $category->nombre_categoria }}</option>
+                                <option value="{{ $category->id_category }}">{{ $category->name_category }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputZip">Precio</label>
-                            <input type="text" class="form-control" id="precioP" name="precio">
+                            <input type="text" class="form-control" id="price" name="price">
                         </div>
                     </div>
 

@@ -2,7 +2,9 @@ $(document).ready(function() {
     var table = $('#datatable').DataTable();
 
     // Cargar datos CATEGORIA
-    table.on('click', '.editBtn', function() {
+    table.on('click', '.editBtnCategory', function(e) {
+
+        e.preventDefault();
 
         $tr = $(this).closest('tr');
         if ($($tr).hasClass('child')) {
@@ -12,15 +14,16 @@ $(document).ready(function() {
         var data = table.row($tr).data();
         // console.log(data);
 
-        $('#nombre').val(data[1]);
-        $('#descripcion').val(data[2]);
+        $('#name_category').val(data[1]);
+        $('#description_category').val(data[2]);
 
-        $('#editForm').attr('action', '/categorias/' + data[0]);
-        $('#editModal').modal('show');
+        $('#editFormCategory').attr('action', '/categorias/' + data[0]);
+        $('#editModalCategory').modal('show');
     });
 
     // Eliminar datos CATEGORIA
-    table.on('click', '.deleteBtn', function() {
+    table.on('click', '.deleteBtnCategory', function(e) {
+        e.preventDefault();
 
         $tr = $(this).closest('tr');
         if ($($tr).hasClass('child')) {
@@ -28,17 +31,15 @@ $(document).ready(function() {
         }
 
         var data = table.row($tr).data();
-        // console.log(data);
 
-        $('#nombreD').val(data[1]);
-
-        $('#deleteForm').attr('action', '/categorias/' + data[0]);
-        $('#deleteModal').modal('show');
+        $('#deleteFormCategory').attr('action', '/categorias/' + data[0]);
+        $('#deleteModalCategory').modal('show');
 
     });
 
     // Editar datos PRODUCTO
-    table.on('click', '.editBtnP', function() {
+    table.on('click', '.editBtnProduct', function(e) {
+        e.preventDefault();
 
         $tr = $(this).closest('tr');
         if ($($tr).hasClass('child')) {
@@ -51,19 +52,20 @@ $(document).ready(function() {
         var data = table.row($tr).data();
         console.log(data);
 
-        $('#imagenP').attr('src', url);
-        $('#nombre_producto').val(data[2]);
-        $('#descripcion_producto').val(data[3]);
-        $('#categoria_idP').val(data[4]);
-        $('#precioP').val(data[5]);
+        $('#image').attr('src', url);
+        $('#name_product').val(data[2]);
+        $('#description_product').val(data[3]);
+        $('#FK_id_category').val(data[4]);
+        $('#price').val(data[5]);
 
-        $('#editFormP').attr('action', '/productos/' + data[0]);
-        $('#editModalP').modal('show');
+        $('#editFormProduct').attr('action', '/productos/' + data[0]);
+        $('#editModalProduct').modal('show');
 
     });
 
     // Eliminar datos PRODUCTO
-    table.on('click', '.deleteBtnP', function() {
+    table.on('click', '.deleteBtnP', function(e) {
+        e.preventDefault();
 
         $tr = $(this).closest('tr');
         if ($($tr).hasClass('child')) {

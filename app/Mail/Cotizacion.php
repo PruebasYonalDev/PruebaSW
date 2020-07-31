@@ -11,17 +11,17 @@ class Cotizacion extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name;
+    public $user;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name)
+    public function __construct($user)
     {
         //
-        $this->name = $name;
+        $this->user = $user;
     }
 
     /**
@@ -31,8 +31,9 @@ class Cotizacion extends Mailable
      */
     public function build()
     {
+        $nameFile = $this->user->name;
+
         return $this->view('modCuatro.email')
-            ->from('softwareweb@email.com')
-            ->subject('Cotización Software Web');
+        ->attach(storage_path("app/public/$nameFile.pdf"));
     }
 }

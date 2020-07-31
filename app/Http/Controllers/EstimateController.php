@@ -2,48 +2,84 @@
 
 namespace App\Http\Controllers;
 
+use App\Estimate;
+use App\Mail\Cotizacion;
+use App\Order;
+use App\Product;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use \Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Mail;
 
 class EstimateController extends Controller
 {
 
-    
-
     public function reporte($id)
     {
-        $idC = $id;
-
-        $alls = DB::table('ordenes')
-        ->join('users', 'users.id', '=', 'ordenes.id_cliente')
+        $alls = Order::where('FK_id_user', $id)
+        ->join('users', 'users.id', '=', 'orders.FK_id_user')
         ->select([
             'users.id',
             'users.name',
             'users.email',
-            'ordenes.id_orden',
-            'ordenes.observacion',
-            'ordenes.total'
-        ])
-        ->where('id_cliente', $idC)->get();
+            'orders.id_order',
+            'orders.commet',
+            'orders.total'
+        ])->get();
 
-        $products = DB::table('productos')
-        ->join('cotizaciones', 'productos.id_producto', '=', 'cotizaciones.id_producto')
-        ->where('cotizaciones.id_cliente', $idC)
+        $products = Product::where('estimate.FK_id_user', $id)
+        ->join('estimate', 'products.id_product', '=', 'estimate.FK_id_product')
         ->select([
-            'productos.id_producto',
-            'productos.nombre_producto',
-            'productos.descripcion_producto',
-            'productos.precio',
+            'products.id_product',
+            'products.name_product',
+            'products.description_product',
+            'products.price',
         ])
         ->get();
 
+        $namePdf = $alls[0]['name'];
+        $ruta = storage_path('app/public/');
 
         $pdf = PDF::loadView('modCuatro.pdf', compact('products'), compact('alls'));
-        return $pdf->download('cotizacion.pdf');
+        return $pdf->save($ruta."$namePdf.pdf")->stream('download.pdf');
         
+    }
+
+    public function email($id)
+    {
+        $alls = Order::where('FK_id_user', $id)
+        ->join('users', 'users.id', '=', 'orders.FK_id_user')
+        ->select([
+            'users.id',
+            'users.name',
+            'users.email',
+            'orders.id_order',
+            'orders.commet',
+            'orders.total'
+        ])->get();
+
+        $products = Product::where('estimate.FK_id_user', $id)
+        ->join('estimate', 'products.id_product', '=', 'estimate.FK_id_product')
+        ->select([
+            'products.id_product',
+            'products.name_product',
+            'products.description_product',
+            'products.price',
+        ])
+        ->get();
+
+        $nameUser = $alls[0]['name'];
+        $ruta = storage_path('app/public/');
+
+        $pdf = PDF::loadView('modCuatro.pdf', compact('products'), compact('alls'));
+        $pdf->save($ruta."$nameUser.pdf");
+
+        $user = User::find($id);
+        $emailUser = $user->email;
+
+        Mail::to($emailUser)->send(new Cotizacion($user));
+
+        return redirect()->route('estimate.index');
     }
 
     /**
@@ -53,10 +89,10 @@ class EstimateController extends Controller
      */
     public function index()
     {
-        
-         $ordenes = DB::table('ordenes')->get();
+     
+        $orders = Order::where('state_order', 1)->get();
 
-        return view('modCuatro.estimate')->with('ordenes', $ordenes);
+        return view('modCuatro.estimate')->with('orders', $orders);
         
     }
 
@@ -71,22 +107,23 @@ class EstimateController extends Controller
     {
         //
 
-        $users = DB::table('users')->get();
-        $products = DB::table('productos')->get();
+        $users = User::all();
+        $products = Product::where('state_product', 1)->get();
 
         return view('modCuatro.create_estimate')->with('users', $users)->with('products', $products);
     }
 
     public function addCotizacion(Request $request)
     {
-        $c = DB::table('cotizaciones')->insert([
 
-            'id_cliente' => $request->detalle['idUser'],
-            'id_producto' => $request->detalle['id'],
-            'created_at' => Carbon::now('America/Bogota')
+        Estimate::create([
+            'FK_id_user' => request()->detalle['FK_id_user'],
+            'FK_id_product' => request()->detalle['idProduct'],
+            'state_estimate' => 1,
         ]);
 
         return true;
+        
     }
 
 
@@ -100,26 +137,23 @@ class EstimateController extends Controller
     {
         //
 
+        // return $request;
+
         $this->validate($request, [
-            'id_cliente' => 'required',
-            'observacion' => 'required',
+            'FK_id_user' => 'required',
+            'commet' => 'required',
             'total' => 'required',
         ]);
 
-        DB::table('ordenes')->insert([
-            'id_cliente' => $request['idUser'],
-            'observacion' => $request['observacion'],
-            'total' => $request['total'],
-            'created_at' => Carbon::now('America/Bogota')
+        Order::create([
+            'FK_id_user' => request('FK_id_user'),
+            'commet' => request('commet'),
+            'total' => request('total'),
+            'state_order' => 1
         ]);
 
-        return redirect()->route('estimate.index')->with('success', 'Producto Actualizado');
+        return redirect()->route('estimate.index')->with('success', 'Cotizacion Creada');
         
-    }
-    
-    public function addProducto($producto)
-    {
-        // dd($producto);
     }
 
     /**

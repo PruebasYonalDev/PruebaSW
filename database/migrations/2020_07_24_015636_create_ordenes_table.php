@@ -13,15 +13,16 @@ class CreateOrdenesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ordenes', function (Blueprint $table) {
-            $table->id('id_orden');
-            $table->unsignedBigInteger('id_cliente');
-            $table->string('observacion');
-            $table->string('total');
+        Schema::create('orders', function (Blueprint $table) {
+            $table->id('id_order');
+            $table->unsignedBigInteger('FK_id_user');
+            $table->string('commet');
+            $table->integer('total');
+            $table->integer('state_order');
             $table->timestamps();
 
             // Relaciones
-            $table->foreign('id_cliente')->references('id')->on('users');
+            $table->foreign('FK_id_user')->references('id')->on('users');
         });
     }
 
@@ -32,6 +33,6 @@ class CreateOrdenesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ordenes');
+        Schema::dropIfExists('orders');
     }
 }

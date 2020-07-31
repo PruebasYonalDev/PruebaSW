@@ -10,48 +10,49 @@
     <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
     <title>Prueba Software Web SAS</title>
-    <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
+    <link rel="apple-touch-icon" href="{{ url('app-assets/images/ico/apple-icon-120.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/vendors/css/vendors.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
 
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/weather-icons/climacons.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/fonts/meteocons/style.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/charts/morris.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/charts/chartist.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/charts/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/vendors/css/vendors.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/vendors/css/weather-icons/climacons.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/fonts/meteocons/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/vendors/css/charts/morris.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/vendors/css/charts/chartist.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/vendors/css/charts/chartist-plugin-tooltip.css') }}">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/css/bootstrap-extended.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/css/colors.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/css/components.css') }}">
     <!-- END: Theme CSS-->
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/core/menu/menu-types/vertical-content-menu.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/fonts/simple-line-icons/style.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/pages/timeline.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/pages/dashboard-ecommerce.css">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/css/core/menu/menu-types/vertical-content-menu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/css/core/colors/palette-gradient.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/fonts/simple-line-icons/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/css/core/colors/palette-gradient.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/css/pages/timeline.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('app-assets/css/pages/dashboard-ecommerce.css') }}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url('assets/css/style.css') }}">
     <!-- END: Custom CSS-->
-
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
     <!-- jstree -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+    <!-- minified jstree source -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -91,56 +92,57 @@
     @include('layout.footer.footer')
 
     <!-- BEGIN: Vendor JS-->
-    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+    <script src="{{ url('app-assets/vendors/js/vendors.min.js') }}"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="../../../app-assets/vendors/js/ui/headroom.min.js"></script>
-    <script src="../../../app-assets/vendors/js/charts/chartist.min.js"></script>
-    <script src="../../../app-assets/vendors/js/charts/chartist-plugin-tooltip.min.js"></script>
-    <script src="../../../app-assets/vendors/js/charts/raphael-min.js"></script>
-    <script src="../../../app-assets/vendors/js/charts/morris.min.js"></script>
-    <script src="../../../app-assets/vendors/js/timeline/horizontal-timeline.js"></script>
+    <script src="{{ url('app-assets/vendors/js/ui/headroom.min.js') }}"></script>
+    <script src="{{ url('app-assets/vendors/js/charts/chartist.min.js') }}"></script>
+    <script src="{{ url('app-assets/vendors/js/charts/chartist-plugin-tooltip.min.js') }}"></script>
+    <script src="{{ url('app-assets/vendors/js/charts/raphael-min.js') }}"></script>
+    <script src="{{ url('app-assets/vendors/js/charts/morris.min.js') }}"></script>
+    <script src="{{ url('app-assets/vendors/js/timeline/horizontal-timeline.js') }}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="../../../app-assets/js/core/app-menu.js"></script>
-    <script src="../../../app-assets/js/core/app.js"></script>
+    <script src="{{ url('app-assets/js/core/app-menu.js') }}"></script>
+    <script src="{{ url('app-assets/js/core/app.js') }}"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="../../../app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
+    <script src="{{ url('app-assets/js/scripts/pages/dashboard-ecommerce.js') }}"></script>
     <!-- END: Page JS-->
 
 
-    <script src="../../../app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
-    <script src="../../../app-assets/js/scripts/tables/datatables-extensions/datatables-sources.js"></script>
+    <script src="{{ url('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
+    <script src="{{ url('app-assets/js/scripts/tables/datatables-extensions/datatables-sources.js') }}"></script>
 
     <!-- CATEGORIAS Y PRODUCTOS -->
-    <script src="{{ asset('js/categoryandproduct.js') }} "></script>
+    <script src="{{ url('js/categoryandproduct.js') }} "></script>
 
         <!-- EMAIL-PDF -->
-    <script src="{{ asset('js/emailandpdf.js') }}"></script>
+    <script src="{{ url('js/emailandpdf.js') }}"></script>
 
         <!-- COTIZACIONES -->
-    <script src="{{ asset('js/cotizaciones.js') }}"></script>
+    <script src="{{ url('js/cotizaciones.js') }}"></script>
 
-    <!-- minified jstree source -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-
-            $('#jstree').jstree();
+        $(document).ready(function() {            
 
             var folder_jsondata = JSON.parse($('#txt_folderjsondata').val());
             console.log('txt_folderjsondata', txt_folderjsondata);
 
-            $('#folder_jstree').jstree({
-                'core': {
-                    'data': folder_jsondata,
-                    'multiple': false
-                }
+            jQuery(function($) {
+
+                $('#folder_jstree').jstree({
+                    'core': {
+                        'data': folder_jsondata,
+                        'multiple': false
+                    }
+                });
+                
             });
+           
 
         });
     </script>

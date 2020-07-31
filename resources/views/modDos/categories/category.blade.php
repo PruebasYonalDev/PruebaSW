@@ -40,7 +40,6 @@
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                <!-- <li><a data-action="close"><i class="ft-x"></i></a></li> -->
                             </ul>
                         </div>
                     </div>
@@ -59,16 +58,16 @@
                                     </thead>
                                     <tbody>
 
-                                        @foreach($categorias as $categoria)
+                                        @foreach($categories as $category)
                                         <tr>
-                                            <td>{{$categoria->id_categoria}}</td>
-                                            <td>{{$categoria->nombre_categoria}}</td>
-                                            <td>{{$categoria->descripcion_categoria}}</td>
-                                            <td>{{$categoria->created_at}}</td>
+                                            <td>{{$category->id_category}}</td>
+                                            <td>{{$category->name_category}}</td>
+                                            <td>{{$category->description_category}}</td>
+                                            <td>{{$category->created_at}}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a href="#" class="btn btn-primary editBtn">Editar</a>
-                                                    <a href="#" class="btn btn-danger deleteBtn">Eliminar</a>
+                                                    <a href="#" class="btn btn-primary editBtnCategory">Editar</a>
+                                                    <a href="#" class="btn btn-danger deleteBtnCategory">Eliminar</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -103,11 +102,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nombre:</label>
-                        <input type="text" class="form-control" name="nombre_categoria">
+                        <input type="text" class="form-control" name="name_category" value="{{ old('name_category') }}">
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Descripcion:</label>
-                        <textarea class="form-control" name="descripcion_categoria"></textarea>
+                        <textarea class="form-control" name="description_category" value="{{ old('description_category') }}"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -121,7 +120,7 @@
 
 
 <!-- Modal Editar Categoria -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModalCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -131,17 +130,17 @@
                 </button>
             </div>
 
-            <form method="POST" action="/categorias" id="editForm">
+            <form method="POST" action="/categorias" id="editFormCategory">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nombre:</label>
-                        <input type="text" class="form-control" name="nombre_categoria" id="nombre">
+                        <input type="text" class="form-control" name="name_category" id="name_category">
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Descripcion:</label>
-                        <textarea class="form-control" name="descripcion_categoria" id="descripcion"></textarea>
+                        <textarea class="form-control" name="description_category" id="description_category"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -155,7 +154,7 @@
 </div>
 
 <!-- Modal Eliminar Categoria -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModalCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -165,7 +164,7 @@
                 </button>
             </div>
 
-            <form method="POST" action="/categorias" id="deleteForm">
+            <form method="POST" action="/categorias" id="deleteFormCategory">
                 @csrf
                 @method('DELETE')
                 <div class="modal-body">

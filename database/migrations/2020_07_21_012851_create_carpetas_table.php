@@ -13,10 +13,11 @@ class CreateCarpetasTable extends Migration
      */
     public function up()
     {
-        Schema::create('carpetas', function (Blueprint $table) {
+        Schema::create('folders', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('name');
             $table->string('parent');
+            $table->integer('state_folder');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateCarpetasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carpetas');
+        Schema::dropIfExists('folders');
     }
 }

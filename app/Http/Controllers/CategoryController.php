@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use App\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -17,9 +16,8 @@ class CategoryController extends Controller
     {
         //
 
-        $categorias = DB::table('categorias')->get();
-
-        return view('modDos.categories.category', ['categorias' => $categorias]);
+        $categories = Category::where('state_category', 1)->get();
+        return view('modDos.categories.category', ['categories' => $categories]);
     }
 
     /**
@@ -29,8 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        // Retorna el modal para crear la categoria
-        // return view('modDos.categories.createCategory');
+        // 
     }
 
     /**
@@ -42,18 +39,20 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+
         $this->validate($request, [
-            'nombre_categoria' => 'required',
-            'descripcion_categoria' => 'required',
+            'name_category' => 'required',
+            'description_category' => 'required',
         ]);
 
-        DB::table('categorias')->insert([
-            'nombre_categoria' => $request['nombre_categoria'],
-            'descripcion_categoria' => $request['descripcion_categoria'],
-            'created_at' => Carbon::now('America/Bogota'),
+        Category::create([
+            'name_category' => request('name_category'),
+            'description_category' => request('description_category'),
+            'state_category' => 1
         ]);
 
-        return back()->with('success', 'Categoria Creada');
+        return back()->with('success', 'Categoria creada');
+
     }
 
     /**
@@ -76,11 +75,6 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
-        $cat = DB::table('categorias')->where('id', $id)->get();
-
-        // return $cat;
-        return view('modDos.categories.editCategory', ['cat' => $cat]);
-        // return view('modDos.categories.editCategory')->with('cat');
     }
 
     /**
@@ -95,19 +89,16 @@ class CategoryController extends Controller
         //
 
         $this->validate($request, [
-            'nombre_categoria' => 'required',
-            'descripcion_categoria' => 'required',
+            'name_category' => 'required',
+            'description_category' => 'required',
         ]);
 
-        DB::table('categorias')
-        ->where('id_categoria', $id)
-        ->update([
-            'nombre_categoria' => $request['nombre_categoria'],
-            'descripcion_categoria' => $request['descripcion_categoria'],
-            'updated_at' => Carbon::now('America/Bogota'),
-        ]);
-
-        return back()->with('success', 'categoria actualizada');
+        Category::where('id_category', $id)->update([
+                'name_category' => $request['name_category'],
+                'description_category' => $request['description_category']
+            ]);
+        
+        return back()->with('success', 'Categoria actualizada');
         
     }
 
@@ -120,9 +111,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-
-        DB::table('categorias')->where('id_categoria', $id)->delete();
-
+        Category::where('id_category', $id)->update(['state_category' => 0]);
         return back()->with('success', 'Categoria Eliminada');
 
     }

@@ -30,9 +30,10 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="inputState">Cliente</label>
-                <select class="form-control" name="idUser" id="idUser">
+                <select class="form-control" name="FK_id_user" id="FK_id_user">
+                    <option selected>Elije una Categoria...</option>
                     @foreach($users as $user)
-                    <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -46,14 +47,14 @@
             </div>
             <div class="form-group col-md-3">
                 <label for="inputZip">Total</label>
-                <input type="text" class="form-control" id="total" name="total">
+                <input type="text" class="form-control" id="total" name="total" value="{{ old('total') }}">
             </div>
         </div>
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Observaciones</span>
             </div>
-            <textarea class="form-control" aria-label="Observaciones" name="observacion" id="observacion"></textarea>
+            <textarea class="form-control" aria-label="Observaciones" name="commet" id="commet" value="{{ old('commet') }}"></textarea>
         </div>
 
         <div class="form-group form-row justify-content-center">
@@ -99,11 +100,11 @@
 
                         @foreach($products as $product)
                         <tr>
-                            <td>{{ $product->id_producto }}</td>
-                            <td><img width="100px" src="{{Storage::url($product->imagen)}}" alt="Imagen de producto"></td>
-                            <td>{{ $product->nombre_producto }}</td>
-                            <td>{{ $product->descripcion_producto }}</td>
-                            <td>{{ $product->precio }}</td>
+                            <td>{{ $product->id_product }}</td>
+                            <td><img width="100px" src="{{Storage::url($product->image)}}" alt="Imagen de producto"></td>
+                            <td>{{ $product->name_product }}</td>
+                            <td>{{ $product->description_product }}</td>
+                            <td>{{ $product->price }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="#" type="button" class="btn btn-primary addBtn">Agregar</a>

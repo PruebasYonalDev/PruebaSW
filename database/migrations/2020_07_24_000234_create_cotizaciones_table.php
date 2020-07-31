@@ -13,15 +13,16 @@ class CreateCotizacionesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cotizaciones', function (Blueprint $table) {
+        Schema::create('estimate', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_cliente');
-            $table->unsignedBigInteger('id_producto');
+            $table->unsignedBigInteger('FK_id_user');
+            $table->unsignedBigInteger('FK_id_product');
+            $table->integer('state_estimate');
             $table->timestamps();
 
             // Relaciones
-            $table->foreign('id_cliente')->references('id')->on('users');
-            $table->foreign('id_producto')->references('id_producto')->on('productos');
+            $table->foreign('FK_id_user')->references('id')->on('users');
+            $table->foreign('FK_id_product')->references('id_product')->on('products');
         });
     }
 
@@ -32,6 +33,6 @@ class CreateCotizacionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cotizaciones');
+        Schema::dropIfExists('estimate');
     }
 }

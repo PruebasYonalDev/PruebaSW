@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,14 +19,13 @@ class ProductController extends Controller
     public function index()
     {
         //
-
-        $all = DB::table('productos')
-            ->join('categorias', 'categorias.id_categoria', '=', 'productos.categoria_id')
-            ->orderBy('productos.created_at')
+        $all = Product::where('state_product', 1)
+            ->join('category', 'category.id_category', '=', 'products.FK_id_category')
             ->get();
-        $categories = DB::table('categorias')->get();
+        
+        $categories = Category::where('state_category', 1)->get();
 
-        return view('modDos.products.product')->with('categories', $categories)->with('all', $all);
+        return view('modDos.products.product')->with('categories', $categories)->with('alls', $all);
     }
 
     /**
@@ -46,32 +47,29 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        // dd($request->all());
-
-        $this->validate($request, [
-            'nombre_producto' => 'required',
-            'descripcion_producto' => 'required',
-            'categoria_id' => 'required',
-            'precio' => 'required',
-        ]);
-
-        if ($request->hasFile('imagen')) {
-            $true = $request->file('imagen')->store('public');
+        if ($request->hasFile('image')) {
+            $true = $request->file('image')->store('public');
         }else{
             $true = 'Default.jpg';
         }
 
-        DB::table('productos')->insert([
-            'imagen' => $true,
-            'nombre_producto' => $request['nombre_producto'],
-            'descripcion_producto' => $request['descripcion_producto'],
-            'categoria_id' => $request['categoria_id'],
-            'precio' => $request['precio'],
-            'created_at' => Carbon::now('America/Bogota')
-        ]);        
+        $this->validate($request, [
+            'name_product' => 'required',
+            'description_product' => 'required',
+            'FK_id_category' => 'required',
+            'price' => 'required',
+        ]);
 
-        return back()->with('success', 'Producto Guardado');
-        // return response()->json($request);
+        Product::create([
+            'image' => $true,
+            'name_product' => request('name_product'),
+            'description_product' => request('description_product'),
+            'FK_id_category' => request('FK_id_category'),
+            'price' => request('price'),
+            'state_product' => 1,
+        ]);
+           
+        return back()->with('success', 'Producto creado');
 
     }
 
@@ -95,7 +93,6 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
-        return view('modDos.products.editproduct');
     }
 
     /**
@@ -109,36 +106,31 @@ class ProductController extends Controller
     {
         //
 
-        // return $request;
+        // return $req = request()->file('image')->store('public');
 
         $this->validate($request, [
-            'nombre_producto' => 'required',
-            'id_categoria' => 'required',
-            'precio' => 'required',
+            'name_product' => 'required',
+            'description_product' => 'required',
+            'FK_id_category' => 'required',
+            'price' => 'required',
         ]);
 
-        if ($request->hasFile('imagen')) {
+        if ($request->hasFile('image')) {
 
-            DB::table('productos')
-            ->where('id_producto', $id)
-            ->update([
-                'imagen' => $request->file('imagen')->store('public'),
-                'nombre_producto' => $request['nombre_producto'],
-                'descripcion_producto' => $request['descripcion_producto'],
-                'categoria_id' => $request['id_categoria'],
-                'precio' => $request['precio'],
-                'updated_at' => Carbon::now('America/Bogota')
+            Product::where('id_product', $id)->update([
+                'image' => request()->file('image')->store('public'),
+                'name_product' => request('name_product'),
+                'description_product' => request('description_product'),
+                'FK_id_category' => request('FK_id_category'),
+                'price' => request('price'),
             ]);
         }
 
-        DB::table('productos')
-        ->where('id_producto', $id)
-        ->update([
-            'nombre_producto' => $request['nombre_producto'],
-            'descripcion_producto' => $request['descripcion_producto'],
-            'categoria_id' => $request['id_categoria'],
-            'precio' => $request['precio'],
-            'updated_at' => Carbon::now('America/Bogota')
+        Product::where('id_product', $id)->update([
+            'name_product' => request('name_product'),
+            'description_product' => request('description_product'),
+            'FK_id_category' => request('FK_id_category'),
+            'price' => request('price'),
         ]);
 
         return back()->with('success', 'Producto Actualizado');
@@ -153,7 +145,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
-        DB::table('productos')->where('id_producto', $id)->delete();
-        return back()->with('success', 'Producto eliminado exitosamente');
+        Product::where('id_product', $id)->update(['state_product' => 0]);
+        return back()->with('success', 'Producto Eliminado');
     }
 }
